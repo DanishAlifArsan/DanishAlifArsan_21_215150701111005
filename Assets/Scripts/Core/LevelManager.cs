@@ -32,8 +32,10 @@ public class LevelManager : MonoBehaviour
         {
             for (int j = 0; j <= y; j++)
             {
-                GameObject newTile =  Instantiate(tile);
+                TileScript newTile =  Instantiate(tile).GetComponent<TileScript>();
                 newTile.transform.position = new Vector3(topLeft.x + (TileSize * i), topLeft.y - (TileSize * j), 0);
+
+                newTile.Setup(new Grid(i,j));
             }
         }
     }
