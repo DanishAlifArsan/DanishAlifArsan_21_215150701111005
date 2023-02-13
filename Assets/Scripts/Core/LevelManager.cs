@@ -8,6 +8,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int x;
     [SerializeField] private int y;
 
+    private Grid enterLocation;
+    private Grid exitLocation;
+
+    [SerializeField] private GameObject enterPoint;
+    [SerializeField] private GameObject exitPoint;
+
     public float TileSize {
         get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
@@ -47,5 +53,16 @@ public class LevelManager : MonoBehaviour
         }
 
         maxTiles = TileDictionary[new Grid(x-1,y-1)].transform.position;
+
+        FlagLocation();
+    }
+
+
+    private void FlagLocation() {
+        enterLocation = new Grid(0,0);
+        Instantiate(enterPoint, TileDictionary[enterLocation].transform.position, Quaternion.identity);
+
+        // exitLocation = new Grid();
+        // Instantiate(exitPoint, TileDictionary[exitLocation].transform.position, Quaternion.identity);
     }
 }
