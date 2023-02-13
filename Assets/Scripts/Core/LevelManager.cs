@@ -60,9 +60,9 @@ public class LevelManager : MonoBehaviour
 
     private void FlagLocation() {
         enterLocation = new Grid(0,0);
-        Instantiate(enterPoint, TileDictionary[enterLocation].transform.position, Quaternion.identity);
+        Instantiate(enterPoint, TileDictionary[enterLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 
-        // exitLocation = new Grid();
-        // Instantiate(exitPoint, TileDictionary[exitLocation].transform.position, Quaternion.identity);
+        exitLocation = new Grid(21, 8);
+        Instantiate(exitPoint, TileDictionary[exitLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
     }
 }
