@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1411187901026056756, guid: 73be04862a6940b4fa410daee35d7b5f, type: 3}
-  x: 20
+  x: 22
   y: 10
 --- !u!1 &2120232737
 GameObject:

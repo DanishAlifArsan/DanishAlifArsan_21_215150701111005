@@ -5,12 +5,14 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject tile;
-    [SerializeField] private float x;
-    [SerializeField] private float y;
+    [SerializeField] private int x;
+    [SerializeField] private int y;
 
     public float TileSize {
         get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
+
+    public Dictionary<Grid,TileScript> TileDictionary { get; set; }
 
     // Start is called before the first frame update
     private void Start()
@@ -25,8 +27,11 @@ public class LevelManager : MonoBehaviour
     }
 
     private void CreateLevel() {
+        TileDictionary = new Dictionary<Grid,TileScript>();
 
         Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0,Screen.height));
+
+        Vector3 maxTiles = Vector3.zero;
 
         for (int i = 0; i <= x; i++)
         {
@@ -36,7 +41,11 @@ public class LevelManager : MonoBehaviour
                 newTile.transform.position = new Vector3(topLeft.x + (TileSize * i), topLeft.y - (TileSize * j), 0);
 
                 newTile.Setup(new Grid(i,j));
+
+                TileDictionary.Add(new Grid(i,j),newTile);
             }
         }
+
+        maxTiles = TileDictionary[new Grid(x-1,y-1)].transform.position;
     }
 }
