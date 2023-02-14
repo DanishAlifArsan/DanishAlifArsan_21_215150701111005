@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject tower;
 
-    public GameObject Tower { 
-        get { return tower; } 
-    }
+    public TowerButton TowerBtn { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +17,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PickTower(TowerButton towerBtn) {
+        this.TowerBtn = towerBtn;
+    }
+
+    public void BuyTower() {
+        TowerBtn = null;
     }
 }
