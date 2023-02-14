@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf51f5ad13560546931712437ea66e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: {fileID: 7302852123349055058, guid: b2324b3545c46de4fb3bbaedb3362b46, type: 3}
+  tower: {fileID: 7864566177728587212, guid: f353eb41e311f9148bfb4a8a9eddf35e, type: 3}
 --- !u!1 &706988132
 GameObject:
   m_ObjectHideFlags: 0
