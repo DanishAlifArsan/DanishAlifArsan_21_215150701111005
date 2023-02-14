@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [SerializeField] private float range;
+    [SerializeField] private float damage;
+    [SerializeField] private float shotCooldown;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
