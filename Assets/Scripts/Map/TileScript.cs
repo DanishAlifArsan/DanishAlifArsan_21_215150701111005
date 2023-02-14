@@ -27,4 +27,11 @@ public class TileScript : MonoBehaviour
             transform.position.y - (GetComponent<SpriteRenderer>().bounds.size.y / 2));
         }
     }
+
+    private void OnMouseOver() {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Instantiate(GameManager.FindObjectOfType<GameManager>().Tower,transform.position,Quaternion.identity);
+        }
+    }
 }
