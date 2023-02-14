@@ -31,11 +31,7 @@ public class TileScript : MonoBehaviour
     private void OnMouseOver() {
         if (Input.GetMouseButtonDown(0)) 
         {
-            GameObject tower = (GameObject)Instantiate(GameManager.FindObjectOfType<GameManager>().Tower,transform.position,Quaternion.identity);
-
-            tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.y;
-
-            tower.transform.SetParent(transform);
+            Instantiate(GameManager.FindObjectOfType<GameManager>().Tower,transform.position,Quaternion.identity);
         }
     }
 }
