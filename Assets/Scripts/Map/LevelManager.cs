@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
         enterLocation = new Grid(0,0);
         Instantiate(enterPoint, TileDictionary[enterLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 
-        exitLocation = new Grid(21, 8);
+        exitLocation = new Grid(21, 5);
         Instantiate(exitPoint, TileDictionary[exitLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
     }
 }
