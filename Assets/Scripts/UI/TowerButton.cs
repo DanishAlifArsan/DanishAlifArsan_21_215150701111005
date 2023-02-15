@@ -19,10 +19,15 @@ public class TowerButton : MonoBehaviour
         get {return sprite;} 
     }
 
+     public int Cost { 
+        get {return cost;} 
+    }
+    
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        costText.text = cost + "$";
     }
 
     // Update is called once per frame

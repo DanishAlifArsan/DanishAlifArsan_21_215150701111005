@@ -35,12 +35,18 @@ public class GameManager : MonoBehaviour
     }
 
     public void PickTower(TowerButton towerBtn) {
-        this.TowerBtn = towerBtn;
-        TowerGrab.FindObjectOfType<TowerGrab>().Activate(TowerBtn.Sprite);
+        if (Currency >= towerBtn.Cost)
+        {
+            this.TowerBtn = towerBtn;
+            TowerGrab.FindObjectOfType<TowerGrab>().Activate(towerBtn.Sprite);
+        }
     }
 
     public void BuyTower() {
-        TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+        if (Currency >= TowerBtn.Cost) {
+            Currency -= TowerBtn.Cost;
+            TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+        }
     }
 
     private void HandleEscape() {
