@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public TowerButton TowerBtn { get; private set; }
+    public TowerButton TowerBtn { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        HandleEscape();
     }
 
     public void PickTower(TowerButton towerBtn) {
@@ -25,6 +25,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void BuyTower() {
-        TowerBtn = null;
+        TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+    }
+
+    private void HandleEscape() {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+        }
     }
 }
