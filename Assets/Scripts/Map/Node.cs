@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
-    public Point GridPosition {get; set;}
-    
+    public Point GridPosition {get; private set;}
+
+    public TileScript TilesReference { get; private set; }
+
+    public Node(TileScript tilesReference) {
+        this. TilesReference = tilesReference;
+        this.GridPosition = tilesReference.GridPosition;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
