@@ -94,6 +94,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5505ed520aec4d7479d34e0e46837a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invalidColor:
+    serializedVersion: 2
+    rgba: 4285822173
+  validColor:
+    serializedVersion: 2
+    rgba: 4282705240
 --- !u!61 &2987054554137667260
 BoxCollider2D:
   m_ObjectHideFlags: 0
