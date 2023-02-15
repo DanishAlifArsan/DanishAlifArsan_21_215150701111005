@@ -7,7 +7,7 @@ public class TowerGrab : MonoBehaviour
     private SpriteRenderer spriteRend;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         spriteRend = GetComponent<SpriteRenderer>();
     }
