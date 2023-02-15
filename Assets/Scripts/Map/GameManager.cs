@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public void PickTower(TowerButton towerBtn) {
         this.TowerBtn = towerBtn;
+        TowerGrab.FindObjectOfType<TowerGrab>().Activate(TowerBtn.Sprite);
     }
 
     public void BuyTower() {

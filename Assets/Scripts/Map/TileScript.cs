@@ -38,6 +38,8 @@ public class TileScript : MonoBehaviour
 
                 tower.transform.SetParent(transform);
 
+                TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+
                 GameManager.FindObjectOfType<GameManager>().BuyTower();
             }
 
