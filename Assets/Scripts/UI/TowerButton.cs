@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
     [SerializeField] private GameObject tower;
 
     [SerializeField] private Sprite sprite;
+    [SerializeField] private int cost;
+    [SerializeField] private Text costText;
 
     public GameObject Tower { 
         get {return tower;} 
