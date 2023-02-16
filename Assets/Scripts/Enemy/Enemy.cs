@@ -45,4 +45,10 @@ public class Enemy : MonoBehaviour
             destination = path.Pop().WorldPosition;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D Collision) {
+        if (Collision.tag == "ExitPoint") {
+            Destroy(gameObject);
+        }
+    }
 }
