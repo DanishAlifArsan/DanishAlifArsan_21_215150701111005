@@ -55,4 +55,12 @@ public class GameManager : MonoBehaviour
             TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
         }
     }
+
+    public void StartWave() {
+         StartCouroutine(SpawnWave());
+    }
+
+    private IEnumerator SpawnWave() {   
+        yield return new WaitForSeconds(2.5f);
+    }
 }
