@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject enterPoint;
     [SerializeField] private GameObject exitPoint;
 
+    private Grid mapSize;
+
     public float TileSize {
         get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
@@ -64,5 +66,9 @@ public class LevelManager : MonoBehaviour
 
         exitLocation = new Grid(21, 8);
         Instantiate(exitPoint, TileDictionary[exitLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+    }
+
+    public bool InBounds(Grid position) {
+        return position.x >= 0 && position.y >= 0;
     }
 }

@@ -15,6 +15,10 @@ public class TileScript : MonoBehaviour
 
     private SpriteRenderer spriteRend;
 
+    // public SpriteRenderer SpriteRend { get; set; }
+
+    public bool Walkable { get; set; }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,6 +32,7 @@ public class TileScript : MonoBehaviour
     }
 
     public void Setup(Grid GridPosition) {
+        Walkable = true;
         IsEmpty = true;
         this.GridPosition = GridPosition;
     }
@@ -57,6 +62,7 @@ public class TileScript : MonoBehaviour
 
                 tower.transform.SetParent(transform);
 
+                Walkable = false;
                 IsEmpty = false;
 
                 GameManager.FindObjectOfType<GameManager>().BuyTower();

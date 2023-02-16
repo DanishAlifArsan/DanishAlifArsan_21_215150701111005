@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Node
 {
-    public Point GridPosition {get; private set;}
+    public Grid GridPosition {get; private set;}
 
     public TileScript TilesReference { get; private set; }
 
     public Node(TileScript tilesReference) {
         this. TilesReference = tilesReference;
         this.GridPosition = tilesReference.GridPosition;
+    }
+
+    public Node Parent { get; private set; }
+    public int GCost { get; private set; }
+    public int HCost { get; set; }
+    public int FCost { get; set; }
+
+    public void CalculateValue(Node parent, Node goal, int gCost) {
+        this.Parent = parent;
+        this.GCost = parent.GCost + gCost;
+        this.HCost = (Mathf.Abs(GridPosition.x - goal.GridPosition.x) + Mathf.Abs(GridPosition.y - goal.GridPosition.y)) * 10 ;
+        this.FCost = GCost + HCost;
     }
 
     // Start is called before the first frame update
