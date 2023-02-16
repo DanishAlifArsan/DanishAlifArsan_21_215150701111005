@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public TowerButton TowerBtn { get; set; }
 
+    [SerializeField] private int startingCurrency;
+
     private int currency;
 
     [SerializeField] private Text currencyText;
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         EnemyPool = GetComponent<EnemyController>();
-        Currency = 5;
+        Currency = startingCurrency;
     }
 
     // Update is called once per frame

@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf51f5ad13560546931712437ea66e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCurrency: 100
   currencyText: {fileID: 320332443}
 --- !u!114 &311037166
 MonoBehaviour:
@@ -1568,7 +1569,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &1321140992
 MonoBehaviour:
   m_ObjectHideFlags: 0
