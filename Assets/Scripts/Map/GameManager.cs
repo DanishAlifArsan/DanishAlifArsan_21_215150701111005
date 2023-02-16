@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        enemyPool.GetObject(type).GetComponent<Enemy>();
+        EnemyPool.GetObject(type).GetComponent<Enemy>();
 
         yield return new WaitForSeconds(2.5f);
     }
