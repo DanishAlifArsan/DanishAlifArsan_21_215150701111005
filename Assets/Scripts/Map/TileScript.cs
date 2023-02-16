@@ -15,6 +15,8 @@ public class TileScript : MonoBehaviour
 
     private SpriteRenderer spriteRend;
 
+    private Tower tower;
+
     // public SpriteRenderer SpriteRend { get; set; }
 
     public bool Walkable { get; set; }
@@ -62,10 +64,21 @@ public class TileScript : MonoBehaviour
 
                 tower.transform.SetParent(transform);
 
+                this.tower = tower.transform.GetChild(0).GetComponent<Tower>();
+
                 Walkable = false;
                 IsEmpty = false;
 
                 GameManager.FindObjectOfType<GameManager>().BuyTower();
+            }
+        }
+        else if (!EventSystem.current.IsPointerOverGameObject() && GameManager.FindObjectOfType<GameManager>().TowerBtn == null && Input.GetMouseButtonDown(0))
+        {
+            if (this.tower != null)
+            {
+                GameManager.FindObjectOfType<GameManager>().SelectTower(this.tower);
+            } else {
+                GameManager.FindObjectOfType<GameManager>().DeselectTower();
             }
         }    
     }

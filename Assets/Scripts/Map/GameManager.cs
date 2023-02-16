@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     private bool waveEnd = true;
 
+    private Tower tower;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -55,6 +57,22 @@ public class GameManager : MonoBehaviour
             this.TowerBtn = towerBtn;
             TowerGrab.FindObjectOfType<TowerGrab>().Activate(towerBtn.Sprite);
         }
+    }
+
+    public void SelectTower(Tower tower) {
+        if(this.tower != null) {
+            this.tower.Select();
+        }
+        
+        this.tower = tower;
+        this.tower.Select();
+    }
+
+    public void DeselectTower() {
+        if(this.tower != null) {
+            this.tower.Select();
+        }
+        this.tower = null;
     }
 
     public void BuyTower() {
