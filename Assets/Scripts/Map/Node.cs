@@ -8,9 +8,12 @@ public class Node
 
     public TileScript TilesReference { get; private set; }
 
+    public Vector2 WorldPosition { get; set; }
+
     public Node(TileScript tilesReference) {
         this. TilesReference = tilesReference;
         this.GridPosition = tilesReference.GridPosition;
+        this.WorldPosition = tilesReference.WorldPosition;
     }
 
     public Node Parent { get; private set; }

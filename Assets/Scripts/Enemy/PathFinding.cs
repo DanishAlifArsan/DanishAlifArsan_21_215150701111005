@@ -15,7 +15,7 @@ public static class PathFinding
         }
     }
 
-    public static void GetPath(Grid start, Grid goal) {
+    public static Stack<Node> GetPath(Grid start, Grid goal) {
         if (node == null)
         {
             Create();
@@ -24,7 +24,6 @@ public static class PathFinding
         HashSet<Node> closedList = new HashSet<Node>();
 
         Stack<Node> finalPath = new Stack<Node>();
-
 
         Node currentNode = node[start];
 
@@ -90,8 +89,10 @@ public static class PathFinding
             }
         }
 
-        //for debug only
-        GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList,closedList);
+        return finalPath;
+
+        // //for debug only
+        // GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList,closedList);
 
       
 

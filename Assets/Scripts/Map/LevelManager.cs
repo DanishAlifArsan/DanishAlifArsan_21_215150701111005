@@ -16,7 +16,19 @@ public class LevelManager : MonoBehaviour
 
     public EnemySpawn SpawnPoint { get; set; }
 
-    private Grid mapSize;
+    private Stack<Node> path;
+
+    public Stack<Node> Path { 
+        get{
+            if (path == null) {
+                GeneratePath();
+            }
+
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+
+    // private Grid mapSize;
 
     public float TileSize {
         get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
@@ -74,5 +86,9 @@ public class LevelManager : MonoBehaviour
 
     public bool InBounds(Grid position) {
         return position.x >= 0 && position.y >= 0;
+    }
+
+    public void GeneratePath() {
+        path = PathFinding.GetPath(enterLocation, exitLocation);
     }
 }

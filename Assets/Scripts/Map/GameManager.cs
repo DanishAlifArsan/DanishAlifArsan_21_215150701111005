@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartWave();
+        }
         HandleEscape();
     }
 
@@ -63,7 +67,9 @@ public class GameManager : MonoBehaviour
          StartCoroutine(SpawnWave());
     }
 
-    private IEnumerator SpawnWave() {   
+    private IEnumerator SpawnWave() { 
+        LevelManager.FindObjectOfType<LevelManager>().GeneratePath();
+
         int enemyIndex = Random.Range(0,4);
 
         string type = string.Empty;
