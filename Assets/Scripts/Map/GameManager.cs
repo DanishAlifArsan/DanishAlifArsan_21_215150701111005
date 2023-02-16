@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Text currencyText;
 
+    public EnemyController EnemyPool { get; set; }
+
     public int Currency { 
         get {
             return currency;
@@ -23,8 +25,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        EnemyPool = GetComponent<EnemyController>();
         Currency = 5;
     }
 
@@ -57,10 +60,32 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartWave() {
-         StartCouroutine(SpawnWave());
+         StartCoroutine(SpawnWave());
     }
 
     private IEnumerator SpawnWave() {   
+        int enemyIndex = Random.Range(0,4);
+
+        string type = string.Empty;
+
+        switch (enemyIndex)
+        {
+            case 0:
+                type = "Enemy 1";
+                break;
+            case 1:
+                type = "Enemy 2";
+                break;
+            case 2:
+                type = "Enemy 3";
+                break;
+            case 3:
+                type = "Enemy 4";
+                break;
+        }
+
+        enemyPool.GetObject(type).GetComponent<Enemy>();
+
         yield return new WaitForSeconds(2.5f);
     }
 }
