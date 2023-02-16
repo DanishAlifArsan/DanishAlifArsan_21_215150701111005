@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         } 
     }
 
+    private int wave = 0;
+    [SerializeField] private Text waveText;
+
+    private bool waveEnd = true;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -36,10 +41,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (waveEnd)
         {
             StartWave();
         }
+        
         HandleEscape();
     }
 
@@ -66,35 +72,49 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartWave() {
-         StartCoroutine(SpawnWave());
+        waveEnd = false;
+
+        wave++;
+
+        waveText.text = string.Format("Wave : <color=cyan>{0}</color>", wave);
+
+        StartCoroutine(SpawnWave());
     }
 
     private IEnumerator SpawnWave() { 
-        LevelManager.FindObjectOfType<LevelManager>().GeneratePath();
-
-        int enemyIndex = Random.Range(0,4);
-
-        string type = string.Empty;
-
-        switch (enemyIndex)
+        for (int i = 0; i < (wave * 2) + 1; i++)
         {
-            case 0:
-                type = "Enemy 1";
-                break;
-            case 1:
-                type = "Enemy 2";
-                break;
-            case 2:
-                type = "Enemy 3";
-                break;
-            case 3:
-                type = "Enemy 4";
-                break;
+            LevelManager.FindObjectOfType<LevelManager>().GeneratePath();
+
+            int enemyIndex = Random.Range(0,4);
+
+            string type = string.Empty;
+
+            switch (enemyIndex)
+            {
+                case 0:
+                    type = "Enemy 1";
+                    break;
+                case 1:
+                    type = "Enemy 2";
+                    break;
+                case 2:
+                    type = "Enemy 3";
+                    break;
+                case 3:
+                    type = "Enemy 4";
+                    break;
+            }
+
+            Enemy enemy = EnemyPool.GetObject(type).GetComponent<Enemy>();
+        
+            enemy.Spawn();
+
+            yield return new WaitForSeconds(2.5f);
         }
+        yield return new WaitForSeconds(10f*(wave-1));
 
-        Enemy enemy = EnemyPool.GetObject(type).GetComponent<Enemy>();
-        enemy.Spawn();
-
-        yield return new WaitForSeconds(2.5f);
+        waveEnd = true;
     }
+
 }
