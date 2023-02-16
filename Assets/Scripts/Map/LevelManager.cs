@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject enterPoint;
     [SerializeField] private GameObject exitPoint;
 
+    public EnemySpawn SpawnPoint { get; set; }
+
     private Grid mapSize;
 
     public float TileSize {
@@ -62,7 +64,9 @@ public class LevelManager : MonoBehaviour
 
     private void FlagLocation() {
         enterLocation = new Grid(0,0);
-        Instantiate(enterPoint, TileDictionary[enterLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        GameObject temp = (GameObject)Instantiate(enterPoint, TileDictionary[enterLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        SpawnPoint = temp.GetComponent<EnemySpawn>();
+        SpawnPoint.name = "Enter Point";
 
         exitLocation = new Grid(21, 8);
         Instantiate(exitPoint, TileDictionary[exitLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);

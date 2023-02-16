@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4705602705691753298}
   - component: {fileID: 4705602705691753299}
+  - component: {fileID: -4950606281774268179}
   m_Layer: 0
-  m_Name: Enter
+  m_Name: Enter Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,3 +81,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4950606281774268179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705602705691753324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf9fde45db77bc42bfe51a9fe037cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

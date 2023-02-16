@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3922375301870780079}
   - component: {fileID: 3922375301870780072}
   - component: {fileID: 8075465204544348922}
+  - component: {fileID: -9038308925786534552}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -114,11 +115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1976a09d49ea8be4db90153163792f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  movementSpeed: 0
-  reward: 0
-  damage: 0
-  enterPoint: {fileID: 4705602705691753324, guid: 342836b32ee853944a1dca21571841e4,
-    type: 3}
-  exitPoint: {fileID: 6698872773465394082, guid: b8b2c1748bf8e0249b07f4fb4233ba69,
-    type: 3}
+  enemyPool: []
+--- !u!114 &-9038308925786534552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922375301870780073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dd91559dd769a4bbef0f8208ed5e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
