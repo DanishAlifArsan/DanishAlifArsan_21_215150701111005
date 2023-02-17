@@ -9,6 +9,13 @@ public class GameManager : MonoBehaviour
     public TowerButton TowerBtn { get; set; }
 
     [SerializeField] private int startingCurrency;
+    [SerializeField] private int startingPlayerHealth;
+    public float StartingPlayerHealth { 
+        get {
+            return startingPlayerHealth;
+        }
+    }
+    public float CurrentPlayerHealth {get; set;}
 
     private int currency;
 
@@ -36,6 +43,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        CurrentPlayerHealth = StartingPlayerHealth;
         EnemyPool = GetComponent<EnemyController>();
         Currency = startingCurrency;
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float damage;
 
     [SerializeField] private float startingHealth;
     public float currentHealth {get; private set;}
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D Collision) {
         if (Collision.tag == "ExitPoint") {
+            GameManager.FindObjectOfType<GameManager>().CurrentPlayerHealth -= damage;
             Destroy(gameObject);
         }
     }
