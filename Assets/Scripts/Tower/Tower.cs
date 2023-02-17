@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private float range;
     [SerializeField] private float damage;
     [SerializeField] private float shotCooldown;
+
+    private float cooldownTimer = Mathf.Infinity;
+
+    [SerializeField] private GameObject[] projectile;
 
     private SpriteRenderer spriteRend;
     private Enemy targettedEnemy;
@@ -21,7 +24,10 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Attack();
+         if(cooldownTimer > shotCooldown) {
+            Attack();
+        }
+        
         Debug.Log(targettedEnemy);
     }
 
@@ -47,6 +53,20 @@ public class Tower : MonoBehaviour
         {
             Debug.Log("attacks");
             targettedEnemy = enemyQueue.Dequeue();
+
+            projectile[findProjectile()].transform.position = transform.position;
+            projectile[findProjectile()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
         }
+    }
+
+    private int findProjectile() {
+        for (int i = 0; i < projectile.Length; i++)
+        {
+            if(!projectile[i].activeInHierarchy) {
+                return i;
+            }
+        }
+        
+        return 0;
     }
 }
