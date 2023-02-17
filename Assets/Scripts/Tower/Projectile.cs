@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     // private float direction;
     private float lifetime;
 
-    private BoxCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     // private Animator anim;
 
     private Enemy targettedEnemy;
@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {   
-        boxCollider = GetComponent<BoxCollider2D>();
+        // boxCollider = GetComponent<BoxCollider2D>();
         // anim = GetComponent<Animator>();
     }
 
@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
     }
 
     private void MoveToTarget(){
-        if (targettedEnemy != null)
+        if (targettedEnemy != null && targettedEnemy.gameObject.activeInHierarchy)
         {
             float movementSpeed = speed * Time.deltaTime;
 
