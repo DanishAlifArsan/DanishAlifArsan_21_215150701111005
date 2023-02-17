@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float damage;
+    [SerializeField] private int killReward;
 
     [SerializeField] private float startingHealth;
     public float currentHealth {get; private set;}
@@ -72,10 +73,12 @@ public class Enemy : MonoBehaviour
             if(!dead) {
                 anim.SetTrigger("die");
                 dead = true;
-                Destroy(gameObject);
-                
                 // SoundManager.instance.playSound(deathSound);
             } 
         }
+    }
+
+    private void Death(){
+        Destroy(gameObject);
     }
 }

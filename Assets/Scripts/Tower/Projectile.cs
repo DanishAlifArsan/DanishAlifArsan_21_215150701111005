@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private float damage;
     [SerializeField] private float speed;
     private bool hit;
     // private float direction;
@@ -11,6 +12,14 @@ public class Projectile : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     // private Animator anim;
+
+    private Enemy targettedEnemy;
+    private Tower towerParent;
+
+    public void Initialize(Tower towerParent) {
+        this.towerParent = towerParent;
+        this.towerParent.TargettedEnemy = towerParent.TargettedEnemy;
+    }
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,9 +35,39 @@ public class Projectile : MonoBehaviour
             return;
         }
 
+        MoveToTarget();
+
+        // targettedEnemy = Tower.FindObjectOfType<Tower>().enemyQueue.Dequeue();
+
+        // if(Tower.FindObjectOfType<Tower>().enemyQueue.Count > 0) {
+        //     float movementSpeed = speed * Time.deltaTime;
+
+        //     transform.position = Vector3.MoveTowards(transform.position, targettedEnemy.transform.position, movementSpeed);
+        //     Vector2 direction = targettedEnemy.transform.position - transform.position;
+
+        //     float angle = Mathf.Atan2(direction.x,direction.y) * Mathf.Rad2Deg;
+
+        //     transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        // }
+
         lifetime += Time.deltaTime;
         if (lifetime > 5) {
             gameObject.SetActive(false);
+        }
+    }
+
+    private void MoveToTarget(){
+        if (targettedEnemy != null)
+        {
+            float movementSpeed = speed * Time.deltaTime;
+
+            transform.position = Vector3.MoveTowards(transform.position, targettedEnemy.transform.position, movementSpeed);
+
+            Vector2 direction = targettedEnemy.transform.position - transform.position;
+
+            float angle = Mathf.Atan2(direction.x,direction.y) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 
@@ -40,11 +79,11 @@ public class Projectile : MonoBehaviour
 
         if(collision.tag == "Enemy") {
             Debug.Log("hit enemy");
-            collision.GetComponent<Enemy>().TakeDamage(1);
+            collision.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
 
-    public void MoveToTarget(Enemy targettedEnemy) {
+    public void SetVisibility() {
         lifetime = 0;
         // direction = _direction;
         gameObject.SetActive(true);
@@ -52,14 +91,7 @@ public class Projectile : MonoBehaviour
         boxCollider.enabled = true;
 
         //set direction
-        float movementSpeed = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targettedEnemy.transform.position, movementSpeed);
-
-        Vector2 direction = targettedEnemy.transform.position - transform.position;
-
-        float angle = Mathf.Atan2(direction.x,direction.y) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
 
         // float localScaleX = targettedEnemy.transform.localScale.x;
         // if (Mathf.Sign(localScaleX) != _direction) {

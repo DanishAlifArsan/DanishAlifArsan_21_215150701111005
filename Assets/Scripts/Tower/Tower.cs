@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private float damage;
     [SerializeField] private float shotCooldown;
 
     private float cooldownTimer = Mathf.Infinity;
@@ -13,9 +12,13 @@ public class Tower : MonoBehaviour
 
     private SpriteRenderer spriteRend;
     // private Enemy targettedEnemy;
-    private Queue<Enemy> enemyQueue = new Queue<Enemy>();
+    public Queue<Enemy> enemyQueue = new Queue<Enemy>();
 
-    public Enemy TargettedEnemy { get; private set;}
+    private Enemy targettedEnemy;
+
+    public Enemy TargettedEnemy { 
+        get; 
+        set; }
 
     // Start is called before the first frame update
     private void Start()
@@ -57,7 +60,8 @@ public class Tower : MonoBehaviour
             TargettedEnemy = enemyQueue.Dequeue();
 
             projectile[findProjectile()].transform.position = transform.position;
-            projectile[findProjectile()].GetComponent<Projectile>().MoveToTarget(TargettedEnemy);
+            projectile[findProjectile()].GetComponent<Projectile>().SetVisibility();
+            projectile[findProjectile()].GetComponent<Projectile>().Initialize(this);
         }
     }
 

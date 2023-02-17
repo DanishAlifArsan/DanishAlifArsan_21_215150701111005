@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   damage: 1
+  killReward: 10
   startingHealth: 10
 --- !u!61 &-7872564244503370857
 BoxCollider2D:
