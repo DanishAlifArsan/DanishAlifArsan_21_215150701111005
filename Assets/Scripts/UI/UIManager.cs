@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     [Header ("game over")]
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text highscoreText;
     // [SerializeField] private AudioClip gameOverSound;
 
     [Header ("pause")]
@@ -30,9 +32,10 @@ public class UIManager : MonoBehaviour
         // }
     }
 
-    public void gameOver() {
+    public void gameOver(int highscore) {
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
+        highscoreText.text = string.Format("Wave : <color=cyan>{0}</color>", highscore);
         // SoundManager.instance.playSound(gameOverSound);
     }
 

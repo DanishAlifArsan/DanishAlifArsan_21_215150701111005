@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
 
     private int wave = 0;
+
     [SerializeField] private Text waveText;
 
     private bool waveEnd = true;
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         if (CurrentPlayerHealth <= 0) 
         {
-            UIManager.FindObjectOfType<UIManager>().gameOver();
+            UIManager.FindObjectOfType<UIManager>().gameOver(wave);
         }
     }
 
