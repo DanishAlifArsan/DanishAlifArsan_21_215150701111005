@@ -6,6 +6,8 @@ public class TowerGrab : MonoBehaviour
 {
     private SpriteRenderer spriteRend;
 
+    public bool IsVisible { get; set; }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -30,11 +32,15 @@ public class TowerGrab : MonoBehaviour
     public void Activate(Sprite sprite) {
         this.spriteRend.sprite = sprite;
         spriteRend.enabled = true;
+
+        IsVisible = true;
     }
 
     public void Deactivate() {
         spriteRend.enabled = false;
         GameManager.FindObjectOfType<GameManager>().TowerBtn = null;
+
+        IsVisible = false;
     }
 
 }
