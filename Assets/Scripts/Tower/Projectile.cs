@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour
 
         if(collision.tag == "Enemy") {
             Debug.Log("hit enemy");
-            // collision.GetComponent<Health>().TakeDamage(1);
+            collision.GetComponent<Enemy>().TakeDamage(1);
         }
     }
 

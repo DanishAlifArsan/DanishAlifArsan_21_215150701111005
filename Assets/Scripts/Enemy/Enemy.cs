@@ -6,15 +6,23 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
 
+    [SerializeField] private float startingHealth;
+    public float currentHealth {get; private set;}
+
     private Stack<Node> path;
+
+    private Animator anim;
+    private bool dead;
 
     public Grid GridPosition { get; set; }
 
     private Vector3 destination;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        currentHealth = startingHealth;
+        anim = GetComponent<Animator>();
+        // spriteRend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -49,6 +57,23 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D Collision) {
         if (Collision.tag == "ExitPoint") {
             Destroy(gameObject);
+        }
+    }
+
+    public void TakeDamage(float _damage) {
+        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
+        
+        if (currentHealth > 0) {
+            anim.SetTrigger("hurt");
+        }
+        else {
+            if(!dead) {
+                anim.SetTrigger("die");
+                dead = true;
+                Destroy(gameObject);
+                
+                // SoundManager.instance.playSound(deathSound);
+            } 
         }
     }
 }
