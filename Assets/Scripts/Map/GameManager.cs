@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text waveText;
     [SerializeField] private GameObject sellButton;
     [SerializeField] private GameObject statPanel;
+    [SerializeField] private Text statText;
 
     private bool waveEnd = true;
 
@@ -239,6 +240,13 @@ public class GameManager : MonoBehaviour
 
     public void TowerStats() {
         statPanel.SetActive(true);
+    }
+    public void HideTowerStats() {
+        statPanel.SetActive(false);
+    }
+
+    public void SetTowerStats(string text) {
+        statText.text = text;
     }
 
 }

@@ -35,4 +35,10 @@ public class TowerButton : MonoBehaviour
     {
         
     }
+
+    public void ShowInfo(string type) {
+        string info = string.Empty;
+        GameManager.FindObjectOfType<GameManager>().SetTowerStats(type);
+        GameManager.FindObjectOfType<GameManager>().TowerStats();
+    }
 }
