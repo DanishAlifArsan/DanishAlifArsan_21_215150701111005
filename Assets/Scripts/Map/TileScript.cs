@@ -7,7 +7,7 @@ public class TileScript : MonoBehaviour
 {
     public Grid GridPosition { get; private set; }
     
-    public bool IsEmpty { get; private set; }
+    public bool IsEmpty { get; set; }
 
     [SerializeField] private Color32 invalidColor;
 
@@ -65,6 +65,8 @@ public class TileScript : MonoBehaviour
                 tower.transform.SetParent(transform);
 
                 this.tower = tower.transform.GetChild(0).GetComponent<Tower>();
+
+                this.tower.Cost = GameManager.FindObjectOfType<GameManager>().TowerBtn.Cost;
 
                 Walkable = false;
                 IsEmpty = false;

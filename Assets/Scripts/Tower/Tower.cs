@@ -16,9 +16,9 @@ public class Tower : MonoBehaviour
 
     private Enemy targettedEnemy;
 
-    public Enemy TargettedEnemy { 
-        get; 
-        set; }
+    public Enemy TargettedEnemy { get; set; }
+
+    public int Cost { get; set; }
 
     // Start is called before the first frame update
     private void Start()

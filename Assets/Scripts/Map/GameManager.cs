@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour
 
     private int wave = 0;
 
+    [Header ("UI")]
     [SerializeField] private Text waveText;
+    [SerializeField] private GameObject sellButton;
 
     private bool waveEnd = true;
 
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour
         
         this.tower = tower;
         this.tower.Select();
+
+        sellButton.SetActive(true);
     }
 
     public void DeselectTower() {
@@ -100,6 +104,8 @@ public class GameManager : MonoBehaviour
             this.tower.Select();
         }
         this.tower = null;
+
+        sellButton.SetActive(false);
     }
 
     public void BuyTower() {
@@ -215,6 +221,19 @@ public class GameManager : MonoBehaviour
     private void DropTower() {
         TowerBtn = null;
         TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+    }
+
+    public void SellTower() {
+        if (this.tower != null)
+        {
+            Currency += this.tower.Cost / 2;
+
+            this.tower.GetComponentInParent<TileScript>().IsEmpty = true;
+
+            Destroy(this.tower.transform.parent.gameObject);
+
+            DeselectTower();
+        }
     }
 
 }
