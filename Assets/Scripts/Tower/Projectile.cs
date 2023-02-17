@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed;
     private bool hit;
-    private float direction;
+    // private float direction;
     private float lifetime;
 
     private BoxCollider2D boxCollider;
@@ -26,9 +26,6 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        float movementSpeed = speed * Time.deltaTime;
-        transform.Translate(movementSpeed, 0, 0);
-
         lifetime += Time.deltaTime;
         if (lifetime > 5) {
             gameObject.SetActive(false);
@@ -42,16 +39,27 @@ public class Projectile : MonoBehaviour
         Deactivate();
 
         if(collision.tag == "Enemy") {
+            Debug.Log("hit enemy");
             // collision.GetComponent<Health>().TakeDamage(1);
         }
     }
 
-    public void SetDirection(float _direction) {
+    public void MoveToTarget(Enemy targettedEnemy) {
         lifetime = 0;
-        direction = _direction;
+        // direction = _direction;
         gameObject.SetActive(true);
         hit = false;
         boxCollider.enabled = true;
+
+        //set direction
+        float movementSpeed = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targettedEnemy.transform.position, movementSpeed);
+
+        Vector2 direction = targettedEnemy.transform.position - transform.position;
+
+        float angle = Mathf.Atan2(direction.x,direction.y) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         // float localScaleX = targettedEnemy.transform.localScale.x;
         // if (Mathf.Sign(localScaleX) != _direction) {

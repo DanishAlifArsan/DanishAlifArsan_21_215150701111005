@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  shotCooldown: 2
+  shotCooldown: 1
   projectile:
   - {fileID: 2141030569548103167}
   - {fileID: 8678728458529562788}

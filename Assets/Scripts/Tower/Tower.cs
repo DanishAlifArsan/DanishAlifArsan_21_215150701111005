@@ -12,8 +12,10 @@ public class Tower : MonoBehaviour
     [SerializeField] private GameObject[] projectile;
 
     private SpriteRenderer spriteRend;
-    private Enemy targettedEnemy;
+    // private Enemy targettedEnemy;
     private Queue<Enemy> enemyQueue = new Queue<Enemy>();
+
+    public Enemy TargettedEnemy { get; private set;}
 
     // Start is called before the first frame update
     private void Start()
@@ -28,7 +30,7 @@ public class Tower : MonoBehaviour
             Attack();
         }
         
-        Debug.Log(targettedEnemy);
+        Debug.Log(TargettedEnemy);
     }
 
     public void Select() {
@@ -37,25 +39,25 @@ public class Tower : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D Collision) {
         if (Collision.tag == "Enemy") {
-            targettedEnemy = Collision.GetComponent<Enemy>();
+            TargettedEnemy = Collision.GetComponent<Enemy>();
             enemyQueue.Enqueue(Collision.GetComponent<Enemy>());
         }
     }
 
     private void OnTriggerExit2D(Collider2D Collision) {
         if (Collision.tag == "Enemy") {
-            targettedEnemy = null;
+            TargettedEnemy = null;
         }
     }
 
     private void Attack() {
-        if (targettedEnemy != null && enemyQueue.Count > 0)
+        if (TargettedEnemy != null && enemyQueue.Count > 0)
         {
             Debug.Log("attacks");
-            targettedEnemy = enemyQueue.Dequeue();
+            TargettedEnemy = enemyQueue.Dequeue();
 
             projectile[findProjectile()].transform.position = transform.position;
-            projectile[findProjectile()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+            projectile[findProjectile()].GetComponent<Projectile>().MoveToTarget(TargettedEnemy);
         }
     }
 
