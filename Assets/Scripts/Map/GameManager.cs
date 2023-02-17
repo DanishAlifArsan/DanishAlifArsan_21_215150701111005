@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
         }
         
         HandleEscape();
+
+        if (CurrentPlayerHealth <= 0) 
+        {
+            UIManager.FindObjectOfType<UIManager>().gameOver();
+        }
     }
 
     public void PickTower(TowerButton towerBtn) {
@@ -93,7 +98,10 @@ public class GameManager : MonoBehaviour
     private void HandleEscape() {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+            if (TowerGrab.FindObjectOfType<TowerGrab>() != null)
+            {
+                TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();    
+            }
         }
     }
 
