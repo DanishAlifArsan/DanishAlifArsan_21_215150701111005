@@ -1144,8 +1144,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000012159, y: -107}
-  m_SizeDelta: {x: 1022.3, y: 61.7}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 1820.4, y: 68.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1360555598
 MonoBehaviour:
@@ -1205,7 +1205,7 @@ MonoBehaviour:
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Endless Tower Defense
