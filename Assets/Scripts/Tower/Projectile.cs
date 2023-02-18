@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     // private float direction;
     private float lifetime;
 
-    [SerializeField] private BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider;
     // private Animator anim;
 
     private Enemy targettedEnemy;
@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {   
-        // boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         // anim = GetComponent<Animator>();
     }
 

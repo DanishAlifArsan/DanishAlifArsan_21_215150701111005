@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text currencyText;
 
     public EnemyController EnemyPool { get; set; }
+    public ProjectileController ProjectilePool { get; set; }
 
     public int Currency { 
         get {
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentPlayerHealth = StartingPlayerHealth;
         EnemyPool = GetComponent<EnemyController>();
+        ProjectilePool = GetComponent<ProjectileController>();
         Currency = startingCurrency;
 
         gameOverScreen.SetActive(false);

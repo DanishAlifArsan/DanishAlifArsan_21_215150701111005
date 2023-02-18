@@ -4,11 +4,48 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    //following video
+    [SerializeField] private string projectileType;
+
+    private bool canAttack = true;
+
+    private void Shoot() {
+        Projectile projectile = GameManager.FindObjectOfType<GameManager>().ProjectilePool.GetObject(projectileType).GetComponent<Projectile>();
+        projectile.transform.position = transform.position;
+    }
+
+    private void Attack() {
+        if (!canAttack)
+        {
+            cooldownTimer += Time.deltaTime;
+
+            if (cooldownTimer >= shotCooldown)
+            {
+                canAttack = true;
+                cooldownTimer = 0;
+            }
+        }
+        if (TargettedEnemy != null && enemyQueue.Count > 0)
+        {
+            Debug.Log("attacks");
+            TargettedEnemy = enemyQueue.Dequeue();
+        }
+        if (TargettedEnemy != null) //&& TargettedEnemy.GetComponent<GameObject>().activeInHierarchy)
+        {
+            if (canAttack)
+            {
+                Shoot(); 
+                canAttack = false;
+            }
+            
+        }
+    }
+
     [SerializeField] private float shotCooldown;
 
     private float cooldownTimer = Mathf.Infinity;
 
-    [SerializeField] private GameObject[] projectile;
+    // [SerializeField] private GameObject[] projectile;
 
     private SpriteRenderer spriteRend;
     // private Enemy targettedEnemy;
@@ -29,9 +66,11 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-         if(cooldownTimer > shotCooldown) {
+        if(cooldownTimer > shotCooldown) {
             Attack();
         }
+
+        // cooldownTimer += Time.deltaTime;
         
         Debug.Log(TargettedEnemy);
     }
@@ -53,26 +92,26 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void Attack() {
-        if (TargettedEnemy != null && enemyQueue.Count > 0)
-        {
-            Debug.Log("attacks");
-            TargettedEnemy = enemyQueue.Dequeue();
+    // private void Attack() {
+    //     if (TargettedEnemy != null && enemyQueue.Count > 0)
+    //     {
+    //         Debug.Log("attacks");
+    //         TargettedEnemy = enemyQueue.Dequeue();
 
-            projectile[findProjectile()].transform.position = transform.position;
-            projectile[findProjectile()].GetComponent<Projectile>().SetVisibility();
-            projectile[findProjectile()].GetComponent<Projectile>().Initialize(this);
-        }
-    }
+    //         projectile[findProjectile()].transform.position = transform.position;
+    //         projectile[findProjectile()].GetComponent<Projectile>().SetVisibility();
+    //         projectile[findProjectile()].GetComponent<Projectile>().Initialize(this);
+    //     }
+    // }
 
-    private int findProjectile() {
-        for (int i = 0; i < projectile.Length; i++)
-        {
-            if(!projectile[i].activeInHierarchy) {
-                return i;
-            }
-        }
+    // private int findProjectile() {
+    //     for (int i = 0; i < projectile.Length; i++)
+    //     {
+    //         if(!projectile[i].activeInHierarchy) {
+    //             return i;
+    //         }
+    //     }
         
-        return 0;
-    }
+    //     return 0;
+    // }
 }

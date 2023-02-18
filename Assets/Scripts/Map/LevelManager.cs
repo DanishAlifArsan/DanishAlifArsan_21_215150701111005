@@ -80,7 +80,7 @@ public class LevelManager : MonoBehaviour
         SpawnPoint = temp.GetComponent<EnemySpawn>();
         SpawnPoint.name = "Enter Point";
 
-        exitLocation = new Grid(21, 8);
+        exitLocation = new Grid(21, 5);
         Instantiate(exitPoint, TileDictionary[exitLocation].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
     }
 
