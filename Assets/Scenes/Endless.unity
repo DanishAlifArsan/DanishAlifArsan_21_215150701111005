@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf51f5ad13560546931712437ea66e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCurrency: 100
+  startingCurrency: 10
   startingPlayerHealth: 10
   currencyText: {fileID: 320332443}
   waveText: {fileID: 267291166}

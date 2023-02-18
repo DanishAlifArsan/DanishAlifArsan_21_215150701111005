@@ -73,6 +73,7 @@ public class Enemy : MonoBehaviour
             if(!dead) {
                 anim.SetTrigger("die");
                 dead = true;
+                GameManager.FindObjectOfType<GameManager>().Currency += killReward;
                 // SoundManager.instance.playSound(deathSound);
             } 
         }

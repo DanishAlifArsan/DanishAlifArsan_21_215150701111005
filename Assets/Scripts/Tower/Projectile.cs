@@ -71,7 +71,7 @@ public class Projectile : MonoBehaviour
 
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         } else if (target == null) {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
@@ -84,7 +84,7 @@ public class Projectile : MonoBehaviour
         if(collision.tag == "Enemy") {
             Debug.Log("hit enemy");
             
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             collision.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
