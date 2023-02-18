@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private AudioClip pauseSound;
 
+    private float spawnTime = 2.5f;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -193,9 +195,14 @@ public class GameManager : MonoBehaviour
         
             enemy.Spawn();
 
-            yield return new WaitForSeconds(2.5f);
+            if (wave % 5 == 0) 
+            {
+                spawnTime /= wave / 5;
+            }
+
+            yield return new WaitForSeconds(spawnTime);
         }
-        yield return new WaitForSeconds(10f*(wave-1));
+        yield return new WaitForSeconds(10f*Mathf.Abs(wave-spawnTime));
 
         waveEnd = true;
     }
