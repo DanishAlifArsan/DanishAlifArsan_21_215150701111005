@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header ("Stats")]
     [SerializeField] private float speed;
     [SerializeField] private float damage;
     [SerializeField] private int killReward;
-
     [SerializeField] private float startingHealth;
-    public float currentHealth {get; private set;}
 
+    [Header ("Audio")]
     [SerializeField] private AudioClip spawnSound;
     [SerializeField] private AudioClip exitSound;
     [SerializeField] private AudioClip deathSound;
+
+    public float currentHealth {get; private set;}
 
     private Stack<Node> path;
 
@@ -23,12 +25,12 @@ public class Enemy : MonoBehaviour
     public Grid GridPosition { get; set; }
 
     private Vector3 destination;
+
     // Start is called before the first frame update
     private void Start()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
-        // spriteRend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame

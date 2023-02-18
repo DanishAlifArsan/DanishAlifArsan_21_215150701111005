@@ -7,8 +7,6 @@ public class SelectionArrow : MonoBehaviour
 {
     [SerializeField] RectTransform[] options;
     [SerializeField] private AudioClip selectSound;
-    // [SerializeField] private AudioClip changeSound;
-    // [SerializeField] private AudioClip interactSound;
 
     private RectTransform rect;
     private int currentPosition;
@@ -50,7 +48,6 @@ public class SelectionArrow : MonoBehaviour
     }
 
     private void interact() {
-        // SoundManager.instance.playSound(interactSound);
         options[currentPosition].GetComponent<Button>().onClick.Invoke();
     }
 }

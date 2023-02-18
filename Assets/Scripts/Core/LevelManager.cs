@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header ("Tiles")]
     [SerializeField] private GameObject tile;
     [SerializeField] private int x;
     [SerializeField] private int y;
 
-    private Grid enterLocation;
-    private Grid exitLocation;
-
+    [Header ("Flag location")]
     [SerializeField] private GameObject enterPoint;
     [SerializeField] private GameObject exitPoint;
+
+    private Grid enterLocation;
+    private Grid exitLocation;
 
     public EnemySpawn SpawnPoint { get; set; }
 
@@ -28,8 +30,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    // private Grid mapSize;
-
     public float TileSize {
         get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
@@ -39,16 +39,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        CreateLevel();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void CreateLevel() {
         TileDictionary = new Dictionary<Grid,TileScript>();
 
         Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0,Screen.height));
@@ -72,7 +62,6 @@ public class LevelManager : MonoBehaviour
 
         FlagLocation();
     }
-
 
     private void FlagLocation() {
         enterLocation = new Grid(0,0);

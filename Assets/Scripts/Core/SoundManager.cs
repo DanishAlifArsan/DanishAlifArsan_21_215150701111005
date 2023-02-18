@@ -6,17 +6,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
     private AudioSource audio;
+    
     // Start is called before the first frame update
     private void Start()
     {
         Instance = this;
         audio = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PlaySound(AudioClip sound) {

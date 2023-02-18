@@ -27,16 +27,4 @@ public class Node
         this.HCost = (Mathf.Abs(GridPosition.x - goal.GridPosition.x) + Mathf.Abs(GridPosition.y - goal.GridPosition.y)) * 10 ;
         this.FCost = GCost + HCost;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

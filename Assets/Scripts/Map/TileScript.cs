@@ -5,32 +5,20 @@ using UnityEngine.EventSystems;
 
 public class TileScript : MonoBehaviour
 {
-    public Grid GridPosition { get; private set; }
-    
+    public Grid GridPosition { get; private set; } 
     public bool IsEmpty { get; set; }
 
     [SerializeField] private Color32 invalidColor;
-
     [SerializeField] private Color32 validColor;
 
     private SpriteRenderer spriteRend;
-
     private Tower tower;
-
-    // public SpriteRenderer SpriteRend { get; set; }
-
     public bool Walkable { get; set; }
 
     // Start is called before the first frame update
     private void Start()
     {
         spriteRend = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Setup(Grid GridPosition) {

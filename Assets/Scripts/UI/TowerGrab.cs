@@ -42,5 +42,4 @@ public class TowerGrab : MonoBehaviour
 
         IsVisible = false;
     }
-
 }

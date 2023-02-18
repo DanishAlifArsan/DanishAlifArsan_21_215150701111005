@@ -6,22 +6,43 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public TowerButton TowerBtn { get; set; }
-
     [Header ("default settings")]
     [SerializeField] private int startingCurrency;
     [SerializeField] private int startingPlayerHealth;
 
+    [Header ("sound")]
+    [SerializeField] private AudioClip waveSound;
+    [SerializeField] private AudioClip buySound;
+    [SerializeField] private AudioClip selectSound;
+    [SerializeField] private AudioClip successSound;
+    [SerializeField] private AudioClip failedSound;
+
+    [Header ("UI")]
+    [SerializeField] private Text waveText;
+    [SerializeField] private GameObject sellButton;
+    [SerializeField] private GameObject statPanel;
+    [SerializeField] private Text statText;
+    [SerializeField] private Text currencyText;
+    
+    [Header ("game over")]
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text highscoreText;
+
+    [Header ("pause")]
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private AudioClip pauseSound;
+
+    public TowerButton TowerBtn { get; set; }
+    
     public float StartingPlayerHealth { 
         get {
             return startingPlayerHealth;
         }
     }
+
     public float CurrentPlayerHealth {get; set;}
 
     private int currency;
-
-    [SerializeField] private Text currencyText;
 
     public EnemyController EnemyPool { get; set; }
     public ProjectileController ProjectilePool { get; set; }
@@ -38,30 +59,9 @@ public class GameManager : MonoBehaviour
 
     private int wave = 0;
 
-    [Header ("sound")]
-    [SerializeField] private AudioClip waveSound;
-    [SerializeField] private AudioClip buySound;
-    [SerializeField] private AudioClip selectSound;
-    [SerializeField] private AudioClip successSound;
-    [SerializeField] private AudioClip failedSound;
-
-    [Header ("UI")]
-    [SerializeField] private Text waveText;
-    [SerializeField] private GameObject sellButton;
-    [SerializeField] private GameObject statPanel;
-    [SerializeField] private Text statText;
-
     private bool waveEnd = true;
 
     private Tower tower;
-
-    [Header ("game over")]
-    [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private Text highscoreText;
-
-    [Header ("pause")]
-    [SerializeField] private GameObject pauseScreen;
-    [SerializeField] private AudioClip pauseSound;
 
     private float spawnTime = 2.5f;
 
@@ -85,13 +85,31 @@ public class GameManager : MonoBehaviour
             StartWave();
         }
         
-        HandleEscape();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (this.tower == null && !TowerGrab.FindObjectOfType<TowerGrab>().IsVisible)
+            {
+                if(pauseScreen.activeInHierarchy) {
+                    pauseGame(false);
+                } else {
+                    pauseGame(true);
+                } 
+            }
+            else if (TowerGrab.FindObjectOfType<TowerGrab>().IsVisible)
+            {
+                DropTower();
+            } else if (this.tower != null) {
+                DeselectTower();
+            }
+        }
 
         if (CurrentPlayerHealth <= 0) 
         {
             gameOver();
         }
     }
+
+    //tower related
 
     public void PickTower(TowerButton towerBtn) {
         if (Currency >= towerBtn.Cost)
@@ -102,6 +120,11 @@ public class GameManager : MonoBehaviour
         } else {
             SoundManager.Instance.PlaySound(failedSound);
         }
+    }
+
+    private void DropTower() {
+        TowerBtn = null;
+        TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
     }
 
     public void SelectTower(Tower tower) {
@@ -132,27 +155,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandleEscape() {
-        if (Input.GetKeyDown(KeyCode.Escape))
+    public void SellTower() {
+        if (this.tower != null)
         {
+            SoundManager.Instance.PlaySound(buySound);
 
-            if (this.tower == null && !TowerGrab.FindObjectOfType<TowerGrab>().IsVisible)
-            {
-                if(pauseScreen.activeInHierarchy) {
-                    pauseGame(false);
-                } else {
-                    pauseGame(true);
-                } 
-            }
-            else if (TowerGrab.FindObjectOfType<TowerGrab>().IsVisible)
-            {
-                DropTower();
-            } else if (this.tower != null) {
-                DeselectTower();
-            }
-             
+            Currency += this.tower.Cost / 2;
+
+            this.tower.GetComponentInParent<TileScript>().IsEmpty = true;
+
+            Destroy(this.tower.transform.parent.gameObject);
+
+            DeselectTower();
         }
     }
+
+    //tower stats
+
+    public void TowerStats() {
+        statPanel.SetActive(true);
+    }
+    public void HideTowerStats() {
+        statPanel.SetActive(false);
+    }
+
+    public void SetTowerStats(string text) {
+        statText.text = text;
+    }
+
+    //wave related
 
     public void StartWave() {
         waveEnd = false;
@@ -207,15 +238,13 @@ public class GameManager : MonoBehaviour
         waveEnd = true;
     }
 
+    //menu screen
+
     public void gameOver() {
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
         highscoreText.text = waveText.text;
     }
-
-    // public void Play() {
-    //     SceneManager.LoadScene(1);
-    // }
 
     public void Retry() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -227,10 +256,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    // public void Quit() {
-    //     Application.Quit();
-    // }
-
     public void pauseGame(bool status) {
         pauseScreen.SetActive(status);
         SoundManager.Instance.PlaySound(pauseSound);
@@ -241,40 +266,5 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
-    private void DropTower() {
-        TowerBtn = null;
-        TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
-    }
-
-    public void SellTower() {
-        if (this.tower != null)
-        {
-            SoundManager.Instance.PlaySound(buySound);
-
-            Currency += this.tower.Cost / 2;
-
-            this.tower.GetComponentInParent<TileScript>().IsEmpty = true;
-
-            Destroy(this.tower.transform.parent.gameObject);
-
-            DeselectTower();
-        }
-    }
-
-    public void TowerStats() {
-        statPanel.SetActive(true);
-    }
-    public void HideTowerStats() {
-        statPanel.SetActive(false);
-    }
-
-    public void SetTowerStats(string text) {
-        statText.text = text;
-    }
-
-    // public void ReleaseObject(GameObject object) {
-    //     gameObject.SetActive(false);
-    // }
 
 }

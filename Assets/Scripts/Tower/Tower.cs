@@ -7,6 +7,7 @@ public class Tower : MonoBehaviour
     //following video
     [SerializeField] private string projectileType;
     [SerializeField] private float projectileSpeed;
+    [SerializeField] private float shotCooldown;
 
     public float ProjectileSpeed { 
         get {return projectileSpeed;}  
@@ -14,14 +15,24 @@ public class Tower : MonoBehaviour
 
     private bool canAttack = true;
 
-    private void Shoot() {
-        Projectile projectile = GameManager.FindObjectOfType<GameManager>().ProjectilePool.GetObject(projectileType).GetComponent<Projectile>();
-        projectile.transform.position = transform.position;
+    private float cooldownTimer = Mathf.Infinity;
+    private SpriteRenderer spriteRend;
+    public Queue<Enemy> enemyQueue = new Queue<Enemy>();
 
-        projectile.Initialize(this);
+    private Enemy targettedEnemy;
+    public Enemy TargettedEnemy { get; set; }
+    
+    public int Cost { get; set; }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        spriteRend = GetComponent<SpriteRenderer>();
     }
 
-    private void Attack() {
+    // Update is called once per frame
+    private void Update()
+    {
         if (!canAttack)
         {
             cooldownTimer += Time.deltaTime;
@@ -34,7 +45,6 @@ public class Tower : MonoBehaviour
         }
         if (TargettedEnemy != null && enemyQueue.Count > 0)
         {
-            Debug.Log("attacks");
             TargettedEnemy = enemyQueue.Dequeue();
         }
         if (TargettedEnemy != null && TargettedEnemy.gameObject.activeInHierarchy)
@@ -44,41 +54,14 @@ public class Tower : MonoBehaviour
                 Shoot(); 
                 canAttack = false;
             }
-            
         }
     }
 
-    [SerializeField] private float shotCooldown;
+    private void Shoot() {
+        Projectile projectile = GameManager.FindObjectOfType<GameManager>().ProjectilePool.GetObject(projectileType).GetComponent<Projectile>();
+        projectile.transform.position = transform.position;
 
-    private float cooldownTimer = Mathf.Infinity;
-
-    // [SerializeField] private GameObject[] projectile;
-
-    private SpriteRenderer spriteRend;
-    // private Enemy targettedEnemy;
-    public Queue<Enemy> enemyQueue = new Queue<Enemy>();
-
-    private Enemy targettedEnemy;
-
-    public Enemy TargettedEnemy { get; set; }
-
-    public int Cost { get; set; }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        spriteRend = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        Attack();
-        
-
-        // cooldownTimer += Time.deltaTime;
-        
-        // Debug.Log(TargettedEnemy);
+        projectile.Initialize(this);
     }
 
     public void Select() {
@@ -97,27 +80,4 @@ public class Tower : MonoBehaviour
             TargettedEnemy = null;
         }
     }
-
-    // private void Attack() {
-    //     if (TargettedEnemy != null && enemyQueue.Count > 0)
-    //     {
-    //         Debug.Log("attacks");
-    //         TargettedEnemy = enemyQueue.Dequeue();
-
-    //         projectile[findProjectile()].transform.position = transform.position;
-    //         projectile[findProjectile()].GetComponent<Projectile>().SetVisibility();
-    //         projectile[findProjectile()].GetComponent<Projectile>().Initialize(this);
-    //     }
-    // }
-
-    // private int findProjectile() {
-    //     for (int i = 0; i < projectile.Length; i++)
-    //     {
-    //         if(!projectile[i].activeInHierarchy) {
-    //             return i;
-    //         }
-    //     }
-        
-    //     return 0;
-    // }
 }

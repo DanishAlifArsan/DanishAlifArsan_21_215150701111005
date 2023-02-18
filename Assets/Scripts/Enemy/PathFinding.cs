@@ -59,14 +59,7 @@ public static class PathFinding
                             openList.Add(neighbor);
                             neighbor.CalculateValue(currentNode, node[goal], gCost);
                         }
-
-                    // for debug only
-                    // neighbor.TilesReference.SpriteRend.color = Color.black;
-
                     }
-                    //for debug only
-                    // Debug.Log(neighborPosition.x + "," + neighborPosition.y);
-
                 }
             }
 
@@ -90,22 +83,5 @@ public static class PathFinding
         }
 
         return finalPath;
-
-        // //for debug only
-        // GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList,closedList);
-
-      
-
     }
-    // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 }
