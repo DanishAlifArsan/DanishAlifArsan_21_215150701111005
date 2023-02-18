@@ -251,4 +251,8 @@ public class GameManager : MonoBehaviour
         statText.text = text;
     }
 
+    // public void ReleaseObject(GameObject object) {
+    //     gameObject.SetActive(false);
+    // }
+
 }

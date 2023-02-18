@@ -5,20 +5,20 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float damage;
-    [SerializeField] private float speed;
-    private bool hit;
+    // [SerializeField] private float speed;
+    // private bool hit;
     // private float direction;
-    private float lifetime;
+    // private float lifetime;
 
     private BoxCollider2D boxCollider;
     // private Animator anim;
 
-    private Enemy targettedEnemy;
+    private Enemy target;
     private Tower towerParent;
 
     public void Initialize(Tower towerParent) {
         this.towerParent = towerParent;
-        this.towerParent.TargettedEnemy = towerParent.TargettedEnemy;
+        this.target = towerParent.TargettedEnemy;
     }
 
     // Start is called before the first frame update
@@ -31,9 +31,9 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (hit) {
-            return;
-        }
+        // if (hit) {
+        //     return;
+        // }
 
         MoveToTarget();
 
@@ -50,45 +50,51 @@ public class Projectile : MonoBehaviour
         //     transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         // }
 
-        lifetime += Time.deltaTime;
-        if (lifetime > 5) {
+        // lifetime += Time.deltaTime;
+        // if (lifetime > 5) {
+        //     gameObject.SetActive(false);
+        // }
+    }
+
+    private void MoveToTarget(){
+        if (target != null && target.gameObject.activeInHierarchy)
+        {
+            // float movementSpeed = speed * Time.deltaTime;
+
+            Debug.Log("moving");
+
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * towerParent.ProjectileSpeed);
+
+            Vector2 direction = target.transform.position - transform.position;
+
+            float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        } else if (target == null) {
             gameObject.SetActive(false);
         }
     }
 
-    private void MoveToTarget(){
-        if (targettedEnemy != null && targettedEnemy.gameObject.activeInHierarchy)
-        {
-            float movementSpeed = speed * Time.deltaTime;
-
-            transform.position = Vector3.MoveTowards(transform.position, targettedEnemy.transform.position, movementSpeed);
-
-            Vector2 direction = targettedEnemy.transform.position - transform.position;
-
-            float angle = Mathf.Atan2(direction.x,direction.y) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision) {
-        hit = true;
-        boxCollider.enabled = false;
+        // hit = true;
+        // boxCollider.enabled = false;
         // anim.SetTrigger("explosion");
-        Deactivate();
+        // Deactivate();
 
         if(collision.tag == "Enemy") {
             Debug.Log("hit enemy");
+            
+            gameObject.SetActive(false);
             collision.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
 
-    public void SetVisibility() {
-        lifetime = 0;
-        // direction = _direction;
-        gameObject.SetActive(true);
-        hit = false;
-        boxCollider.enabled = true;
+    // public void SetVisibility() {
+    //     // lifetime = 0;
+    //     // direction = _direction;
+    //     gameObject.SetActive(true);
+    //     hit = false;
+    //     boxCollider.enabled = true;
 
         //set direction
         
@@ -100,9 +106,9 @@ public class Projectile : MonoBehaviour
         // }
 
         // targettedEnemy.transform.localScale = new Vector3(localScaleX, transform.localScale.y,targettedEnemy.transform.localScale.z);
-    }
+    // }
 
-    private void Deactivate() {
-        gameObject.SetActive(false);   
-    }
+    // private void Deactivate() {
+    //     gameObject.SetActive(false);   
+    // }
 }

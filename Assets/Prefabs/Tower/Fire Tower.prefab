@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: Fireball
+  projectileSpeed: 10
   shotCooldown: 1
 --- !u!1001 &1626993153569114874
 PrefabInstance:

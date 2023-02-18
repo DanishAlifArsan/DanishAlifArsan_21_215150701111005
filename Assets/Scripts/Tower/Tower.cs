@@ -6,12 +6,19 @@ public class Tower : MonoBehaviour
 {
     //following video
     [SerializeField] private string projectileType;
+    [SerializeField] private float projectileSpeed;
+
+    public float ProjectileSpeed { 
+        get {return projectileSpeed;}  
+    }
 
     private bool canAttack = true;
 
     private void Shoot() {
         Projectile projectile = GameManager.FindObjectOfType<GameManager>().ProjectilePool.GetObject(projectileType).GetComponent<Projectile>();
         projectile.transform.position = transform.position;
+
+        projectile.Initialize(this);
     }
 
     private void Attack() {
@@ -30,7 +37,7 @@ public class Tower : MonoBehaviour
             Debug.Log("attacks");
             TargettedEnemy = enemyQueue.Dequeue();
         }
-        if (TargettedEnemy != null) //&& TargettedEnemy.GetComponent<GameObject>().activeInHierarchy)
+        if (TargettedEnemy != null && TargettedEnemy.gameObject.activeInHierarchy)
         {
             if (canAttack)
             {
@@ -66,13 +73,12 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(cooldownTimer > shotCooldown) {
-            Attack();
-        }
+        Attack();
+        
 
         // cooldownTimer += Time.deltaTime;
         
-        Debug.Log(TargettedEnemy);
+        // Debug.Log(TargettedEnemy);
     }
 
     public void Select() {
