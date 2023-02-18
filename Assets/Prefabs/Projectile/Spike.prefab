@@ -111,3 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 8
+  projectileSound: {fileID: 8300000, guid: 4385645dc93f6134e8aac2cb8d340f05, type: 3}

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [Header ("default settings")]
     [SerializeField] private int startingCurrency;
     [SerializeField] private int startingPlayerHealth;
+
     public float StartingPlayerHealth { 
         get {
             return startingPlayerHealth;
@@ -37,6 +38,13 @@ public class GameManager : MonoBehaviour
 
     private int wave = 0;
 
+    [Header ("sound")]
+    [SerializeField] private AudioClip waveSound;
+    [SerializeField] private AudioClip buySound;
+    [SerializeField] private AudioClip selectSound;
+    [SerializeField] private AudioClip successSound;
+    [SerializeField] private AudioClip failedSound;
+
     [Header ("UI")]
     [SerializeField] private Text waveText;
     [SerializeField] private GameObject sellButton;
@@ -50,11 +58,10 @@ public class GameManager : MonoBehaviour
     [Header ("game over")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private Text highscoreText;
-    // [SerializeField] private AudioClip gameOverSound;
 
     [Header ("pause")]
     [SerializeField] private GameObject pauseScreen;
-    // [SerializeField] private AudioClip pauseSound;
+    [SerializeField] private AudioClip pauseSound;
 
     // Start is called before the first frame update
     private void Start()
@@ -89,6 +96,9 @@ public class GameManager : MonoBehaviour
         {
             this.TowerBtn = towerBtn;
             TowerGrab.FindObjectOfType<TowerGrab>().Activate(towerBtn.Sprite);
+            SoundManager.Instance.PlaySound(successSound);
+        } else {
+            SoundManager.Instance.PlaySound(failedSound);
         }
     }
 
@@ -96,6 +106,7 @@ public class GameManager : MonoBehaviour
         if(this.tower != null) {
             this.tower.Select();
         }
+        SoundManager.Instance.PlaySound(selectSound);
         
         this.tower = tower;
         this.tower.Select();
@@ -108,7 +119,6 @@ public class GameManager : MonoBehaviour
             this.tower.Select();
         }
         this.tower = null;
-
         sellButton.SetActive(false);
     }
 
@@ -116,6 +126,7 @@ public class GameManager : MonoBehaviour
         if (Currency >= TowerBtn.Cost) {
             Currency -= TowerBtn.Cost;
             TowerGrab.FindObjectOfType<TowerGrab>().Deactivate();
+            SoundManager.Instance.PlaySound(buySound);
         }
     }
 
@@ -147,6 +158,8 @@ public class GameManager : MonoBehaviour
         wave++;
 
         waveText.text = string.Format("Wave : <color=cyan>{0}</color>", wave);
+
+        SoundManager.Instance.PlaySound(waveSound);
 
         StartCoroutine(SpawnWave());
     }
@@ -191,7 +204,6 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
         highscoreText.text = waveText.text;
-        // SoundManager.instance.playSound(gameOverSound);
     }
 
     // public void Play() {
@@ -214,6 +226,7 @@ public class GameManager : MonoBehaviour
 
     public void pauseGame(bool status) {
         pauseScreen.SetActive(status);
+        SoundManager.Instance.PlaySound(pauseSound);
 
         if(status) {
             Time.timeScale = 0;
@@ -230,6 +243,8 @@ public class GameManager : MonoBehaviour
     public void SellTower() {
         if (this.tower != null)
         {
+            SoundManager.Instance.PlaySound(buySound);
+
             Currency += this.tower.Cost / 2;
 
             this.tower.GetComponentInParent<TileScript>().IsEmpty = true;

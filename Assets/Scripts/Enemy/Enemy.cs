@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth {get; private set;}
 
+    [SerializeField] private AudioClip spawnSound;
+    [SerializeField] private AudioClip exitSound;
+    [SerializeField] private AudioClip deathSound;
+
     private Stack<Node> path;
 
     private Animator anim;
@@ -44,6 +48,8 @@ public class Enemy : MonoBehaviour
     public void Spawn() {
         transform.position = LevelManager.FindObjectOfType<LevelManager>().SpawnPoint.transform.position;
 
+        SoundManager.Instance.PlaySound(spawnSound);
+
         SetPath(LevelManager.FindObjectOfType<LevelManager>().Path);
     }
 
@@ -59,6 +65,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D Collision) {
         if (Collision.tag == "ExitPoint") {
             GameManager.FindObjectOfType<GameManager>().CurrentPlayerHealth -= damage;
+            SoundManager.Instance.PlaySound(exitSound);
             Destroy(gameObject);
         }
     }
@@ -74,7 +81,7 @@ public class Enemy : MonoBehaviour
                 anim.SetTrigger("die");
                 dead = true;
                 GameManager.FindObjectOfType<GameManager>().Currency += killReward;
-                // SoundManager.instance.playSound(deathSound);
+                SoundManager.Instance.PlaySound(deathSound);
             } 
         }
     }

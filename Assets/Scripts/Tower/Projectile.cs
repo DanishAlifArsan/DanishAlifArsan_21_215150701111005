@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float damage;
-    // [SerializeField] private float speed;
+    [SerializeField] private AudioClip projectileSound;
     // private bool hit;
     // private float direction;
     // private float lifetime;
@@ -62,6 +62,8 @@ public class Projectile : MonoBehaviour
             // float movementSpeed = speed * Time.deltaTime;
 
             Debug.Log("moving");
+
+            SoundManager.Instance.PlaySound(projectileSound);
 
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * towerParent.ProjectileSpeed);
 

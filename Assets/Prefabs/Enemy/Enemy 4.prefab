@@ -120,6 +120,9 @@ MonoBehaviour:
   damage: 1
   killReward: 5
   startingHealth: 30
+  spawnSound: {fileID: 8300000, guid: 2a6a03cfe7fb1fa4b854172582b07451, type: 3}
+  exitSound: {fileID: 8300000, guid: 2f8ac69fed9ff6348b4bce91262e8732, type: 3}
+  deathSound: {fileID: 8300000, guid: 4115528b614f6734080503364b9bf953, type: 3}
 --- !u!61 &-7872564244503370857
 BoxCollider2D:
   m_ObjectHideFlags: 0
