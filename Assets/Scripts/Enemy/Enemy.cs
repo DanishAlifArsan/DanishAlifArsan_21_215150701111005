@@ -52,7 +52,16 @@ public class Enemy : MonoBehaviour
 
         SoundManager.Instance.PlaySound(spawnSound);
 
-        SetPath(LevelManager.FindObjectOfType<LevelManager>().Path);
+        try
+        {
+            SetPath(LevelManager.FindObjectOfType<LevelManager>().Path);
+        }
+        catch (System.Exception)
+        {
+            
+        }
+
+        
     }
 
     private void SetPath(Stack<Node> newPath) {

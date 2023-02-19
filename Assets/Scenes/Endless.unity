@@ -724,7 +724,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingCurrency: 10
   startingPlayerHealth: 10
-  currencyText: {fileID: 320332443}
   waveSound: {fileID: 8300000, guid: c64654cb985136149bb6ff5b7d322bb2, type: 3}
   buySound: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   selectSound: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -734,6 +733,7 @@ MonoBehaviour:
   sellButton: {fileID: 315650064}
   statPanel: {fileID: 2055238341}
   statText: {fileID: 819738211}
+  currencyText: {fileID: 320332443}
   gameOverScreen: {fileID: 1341769069}
   highscoreText: {fileID: 576836411}
   pauseScreen: {fileID: 2099477115}
